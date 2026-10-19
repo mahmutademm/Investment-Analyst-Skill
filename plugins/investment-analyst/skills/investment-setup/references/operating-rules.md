@@ -1,6 +1,6 @@
 # Operating rules for every investment-analyst skill
 
-These rules apply to setup, macro-analysis, sector-screening, pick-the-stock and portfolio-review.
+These rules apply to investment-setup, macro-analysis, sector-screening, pick-the-stock and portfolio-review.
 
 ## 1. Who does what
 
@@ -14,15 +14,15 @@ These rules apply to setup, macro-analysis, sector-screening, pick-the-stock and
 Never move work across these lines silently. If you are tempted to compute a ratio "in your head", run the
 toolkit instead. If you are tempted to pick the stocks, stop and ask.
 
-## 2. Stop and ask (use AskUserQuestion) when
+## 2. Stop and ask (how: section 8) when
 
 - a required input is missing (workspace, SEC contact, portfolio value for sizing, sub-industry mapping);
 - the data is ambiguous or contradictory (rule vote is AMBIGUOUS, SEC vs Yahoo numbers differ by > 5%,
   a 10-K section cannot be found, a peer looks misclassified);
 - a step needs a decision from the user (cycle phase, weights, sub-industries, shortlist, peer set,
   life-cycle stage, scenario assumptions, proceeding after a gate FAIL);
-- a command would take more than ~3 minutes (offer: user runs it with `! <command>`, or you run it in the
-  background, or wait for the scheduled GitHub Action);
+- a command would take more than ~3 minutes (offer: the user runs it in their own terminal, you run it in
+  the background if your platform can, or wait for the scheduled GitHub Action);
 - an action is outward-facing or hard to undo (creating a GitHub repo, pushing, adding secrets, deleting files).
 
 Ask one focused question at a time with concrete options and your recommendation first. Do not ask about
@@ -69,3 +69,27 @@ scenarios and trade-offs. The Decision cell in the workbook is the user's.
 - If the workspace is a git repo with a remote, run `git -C <workspace> pull --ff-only` first so the latest
   GitHub Actions data is local. If the pull fails, tell the user; do not force anything.
 - Exit code 2 = configuration problem (read the message); 1 = runtime error (retry once, then report).
+
+## 8. Platform notes (Claude Code, Codex, Cursor and others)
+
+The skills follow the open Agent Skills format, so any compatible AI tool can run them. What differs:
+
+| | Claude Code | Codex | Cursor | Other tools |
+|---|---|---|---|---|
+| Run a skill | `/investment-analyst:<skill>` (plugin) or `/<skill>` | `$<skill>`, or pick it in `/skills` | type `/` and pick it | by name: "use the <skill> skill" |
+| Structured questions | AskUserQuestion tool | ask in chat | ask in chat | ask in chat |
+| User runs a long command | in their terminal, or `! <command>` in the prompt | in their terminal | in the terminal panel | in their terminal |
+
+- **Asking.** Use the platform's structured question tool if it has one (multiple choice, recommendation
+  first, free text allowed). Otherwise ask in chat with numbered options, then stop and wait for the reply.
+  Never continue past a decision point on an assumed answer.
+- **Sandboxes.** Some tools run commands without internet or without write access outside the project
+  folder (for example Codex's default sandbox, or cloud agents). The toolkit needs internet. When a command
+  fails with a network or permission error, ask the user to approve network access for it or to run it in
+  their own terminal. Never work around a sandbox.
+- **Work in the workspace.** After setup, the user should open their AI tool in the workspace folder. Its
+  `AGENTS.md` (read by Codex, Cursor, Copilot, Windsurf, Gemini CLI and most other tools; `CLAUDE.md`
+  imports it for Claude Code) repeats these rules for tools that have no skill support.
+- **Files.** Change files with your platform's file-edit tool and show the user what changed.
+- **Missing pieces.** If a referenced file in a sibling skill is missing (a tool installed only one
+  skill), read it from https://github.com/mahmutademm/Investment-Analyst-Skill/tree/main/plugins/investment-analyst/skills.

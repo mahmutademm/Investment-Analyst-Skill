@@ -1,6 +1,7 @@
 # iat-toolkit
 
-Python half of the `investment-analyst` Claude Code plugin. It does the mechanical, repeatable work:
+Python half of the `investment-analyst` agent skills (Claude Code, Codex, Cursor and other Agent Skills
+tools). It does the mechanical, repeatable work:
 
 | Command | What it does | Typical runtime |
 |---|---|---|

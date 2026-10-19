@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "iat-toolkit"
-version = "0.1.1"
-description = "Investment Analyst Toolkit: data pulls, screens, forensic ratios and Excel builders for the investment-analyst Claude Code plugin."
+dynamic = ["version"]
+description = "Investment Analyst Toolkit: data pulls, screens, forensic ratios and Excel builders for the investment-analyst agent skills."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
@@ -24,6 +24,9 @@ dependencies = [
 
 [project.scripts]
 iat = "iat.cli:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "iat.__version__"}
 
 [tool.setuptools.packages.find]
 include = ["iat*"]

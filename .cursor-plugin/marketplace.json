@@ -1,0 +1,30 @@
+{
+  "name": "investment-analyst",
+  "owner": {
+    "name": "mahmutademm"
+  },
+  "metadata": {
+    "description": "Top-down equity research workflow: macro cycle and sector rotation, sub-industry screening, and 10-K deep dives with Excel output."
+  },
+  "plugins": [
+    {
+      "name": "investment-analyst",
+      "source": "./plugins/investment-analyst",
+      "description": "Macro analysis, sector screening and single-stock deep dives backed by a Python toolkit (FRED, Yahoo Finance, SEC EDGAR), SQLite history and Excel workbooks. The user makes every decision.",
+      "author": {
+        "name": "Mahmut A Ergin"
+      },
+      "license": "MIT",
+      "category": "finance",
+      "keywords": [
+        "investing",
+        "equity-research",
+        "sector-rotation",
+        "screening",
+        "10-K",
+        "dcf",
+        "excel"
+      ]
+    }
+  ]
+}

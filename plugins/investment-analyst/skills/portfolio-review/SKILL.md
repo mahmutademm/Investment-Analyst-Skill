@@ -1,7 +1,11 @@
 ---
 name: portfolio-review
-description: Ongoing tracking for the investment-analyst workflow. Reads the daily/weekly reports from GitHub Actions (or runs them), checks every watchlist name against its price stop, thesis stop, sector relative strength, catalyst and earnings dates, flags scale-in tranche triggers, runs the monthly scorecard re-check, and records decisions in the journal. Use for /investment-analyst:portfolio-review, "check my positions", "did anything trigger", "weekly review", "monthly review", "update my watchlist".
-argument-hint: "[daily | weekly | monthly]"
+description: Ongoing tracking for the investment-analyst workflow. Reads the daily/weekly reports from GitHub Actions (or runs them), checks every watchlist name against its price stop, thesis stop, sector relative strength, catalyst and earnings dates, flags scale-in tranche triggers, runs the monthly scorecard re-check, and records decisions in the journal. Use for "check my positions", "did anything trigger", "weekly review", "monthly review", "update my watchlist". Takes an optional mode (daily, weekly or monthly).
+license: MIT
+compatibility: Needs Python 3.10+ and internet access; run the investment-setup skill first.
+metadata:
+  plugin: investment-analyst
+  repository: https://github.com/mahmutademm/Investment-Analyst-Skill
 ---
 
 # Portfolio review
@@ -9,7 +13,7 @@ argument-hint: "[daily | weekly | monthly]"
 Keep the process honest after the buy: the exits written before buying are only useful if someone checks
 them. You surface triggers and evidence; the user decides any trade.
 
-Read first: `../setup/references/operating-rules.md`.
+Read first: the shared rules in `../investment-setup/references/operating-rules.md` (if that folder was not installed: https://github.com/mahmutademm/Investment-Analyst-Skill/blob/main/plugins/investment-analyst/skills/investment-setup/references/operating-rules.md).
 
 ## Workflow
 
@@ -36,7 +40,7 @@ fresh estimates), guidance changes in the latest earnings release, sector revisi
 "intact", "weakening (why)" or "triggered (why)", with sources.
 
 ### 3. Monthly review
-- Re-run the macro scorecard in review mode (`/investment-analyst:macro-analysis review`): did any pillar
+- Re-run the macro scorecard in review mode (the `macro-analysis` skill with `review`): did any pillar
   flip for the sectors you hold?
 - Re-screen the active sub-industries if the weekly Action is not running.
 - Compare the 6-month expected return written at entry (journal) with progress so far.

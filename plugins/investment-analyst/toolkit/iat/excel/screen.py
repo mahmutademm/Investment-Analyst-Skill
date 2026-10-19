@@ -156,7 +156,7 @@ def build(ws_cfg: Workspace, key: str, notes: dict | None = None, notes_path: Pa
         C.autosize(ws)
 
     C.readme(wb, f"Sub-industry screen: {sub.get('name', key)}", [
-        ("Use", "Ranking -> News Check (AI drafts, you judge) -> pick 3-4 names for /investment-analyst:pick-the-stock."),
+        ("Use", "Ranking -> News Check (AI drafts, you judge) -> pick 3-4 names for the pick-the-stock skill."),
         ("Warning", "A screen is cheap and mechanical by design. It narrows the field; it cannot tell you why a stock is cheap."),
     ])
     order = ["README", "Ranking", "News Check", "Valuation", "Quality", "Expectations", "Balance sheet & risk",

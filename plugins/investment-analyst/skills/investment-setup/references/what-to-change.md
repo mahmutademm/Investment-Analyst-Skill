@@ -5,7 +5,7 @@ editing for a new sector or stock.
 
 ## New macro view or new sector weights
 
-Recorded by `/investment-analyst:macro-analysis` in `config/state.yaml`:
+Recorded by the macro-analysis skill in `config/state.yaml`:
 
 ```yaml
 cycle: {phase: Late cycle, date: 2026-10-18, confidence: Medium}

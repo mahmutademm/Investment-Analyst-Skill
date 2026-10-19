@@ -1,7 +1,11 @@
 ---
 name: macro-analysis
-description: Top-down macro and sector-rotation analysis for a ~6-month horizon. Reads inflation (CPI, core PCE), the Fed path (actual and market-implied), the 10-year yield and curve, credit spreads, labor and activity data; proposes a business-cycle phase; scores every sector on four pillars (cycle fit, earnings revisions, relative strength, valuation vs its own history); and helps the user set sector weights and the sub-industries to screen. Produces Macro_<date>.xlsx and records the decisions for the screening skill. Use for /investment-analyst:macro-analysis, "what cycle are we in", "which sectors should I be in", "sector rotation", "monthly scorecard review".
-argument-hint: "[full | review | scorecard-only]"
+description: Top-down macro and sector-rotation analysis for a ~6-month horizon. Reads inflation (CPI, core PCE), the Fed path (actual and market-implied), the 10-year yield and curve, credit spreads, labor and activity data; proposes a business-cycle phase; scores every sector on four pillars (cycle fit, earnings revisions, relative strength, valuation vs its own history); and helps the user set sector weights and the sub-industries to screen. Produces Macro_<date>.xlsx and records the decisions for the screening skill. Use for "what cycle are we in", "which sectors should I be in", "sector rotation", "monthly scorecard review". Takes an optional mode (full, review or scorecard-only).
+license: MIT
+compatibility: Needs Python 3.10+ and internet access; run the investment-setup skill first.
+metadata:
+  plugin: investment-analyst
+  repository: https://github.com/mahmutademm/Investment-Analyst-Skill
 ---
 
 # Macro analysis and sector rotation
@@ -10,7 +14,8 @@ Goal: decide **where we are in the cycle** and **which sectors and sub-industrie
 next ~6 months**, while controlling timing risk. Markets price economic turns 6-9 months before the data
 confirms them, so the job is to judge what is *already priced* versus what is *likely next*.
 
-Read first: `../setup/references/operating-rules.md`. Detail lives in this skill's `references/`:
+Read first: the shared rules in `../investment-setup/references/operating-rules.md` (if that folder was not installed: https://github.com/mahmutademm/Investment-Analyst-Skill/blob/main/plugins/investment-analyst/skills/investment-setup/references/operating-rules.md).
+Detail lives in this skill's `references/`:
 `cycle-playbook.md` (phases, indicators, sector map), `scorecard.md` (how each pillar is scored),
 `timing-risk.md` (entry/exit discipline), `sources.md` (where to get each fact).
 
@@ -47,7 +52,8 @@ commands). Summarize in a short table:
 Then the rule vote (`cycle.scores`, the fired rules and their evidence). Say so if it is AMBIGUOUS.
 
 ### 2. Research what the data cannot show (cite everything)
-Use WebSearch/WebFetch on the sources in `references/sources.md`:
+Use your web search and page-fetch tools on the sources in `references/sources.md` (no web access on this
+platform: ask the user to paste the pages, or mark the item `unknown`):
 - Latest FOMC statement, minutes and the Summary of Economic Projections (dot plot); upcoming FOMC dates.
 - Market-implied path from CME FedWatch (probabilities for the next 3-4 meetings). If it is unreachable,
   use the 2Y-minus-fed-funds proxy and say that you did.
@@ -60,7 +66,7 @@ Use WebSearch/WebFetch on the sources in `references/sources.md`:
 
 ### 3. Propose the cycle phase, then STOP and ask
 Write a one-paragraph case for the leading phase and the runner-up: evidence for, evidence against, and
-what the market seems to be pricing six months out. Then ask with AskUserQuestion: the four phases
+what the market seems to be pricing six months out. Then ask the user (operating rules, section 8): the four phases
 (Early recovery / Mid cycle / Late cycle / Contraction), your recommendation first, with one-line reasons.
 Record the answer: `python -m iat state set cycle "{phase: <phase>, date: <today>, confidence: <Low|Medium|High>}"`.
 
@@ -90,7 +96,7 @@ python -m iat state set sub_industries "{Health Care: [medical-devices, managed-
 python -m iat state set screening.active "[medical-devices, managed-care, ...]"
 ```
 If a needed sub-industry is missing from `config/sub_industries.yaml`, follow
-`../setup/references/what-to-change.md` and confirm the Yahoo industry mapping with the user.
+`../investment-setup/references/what-to-change.md` and confirm the Yahoo industry mapping with the user.
 
 ### 6. Write the notes and build the workbook
 `python -m iat notes-template macro` creates `<workspace>/output/macro/notes.json`. Fill it (schema in the
@@ -106,7 +112,7 @@ Review monthly, not daily: daily noise is not a regime change.
 ### 8. Hand-off
 Tell the user the phase, a scorecard table (sector, 4 pillars, verdict, weight), the sub-industries, the
 entry and exit rules from `references/timing-risk.md` applied to this call, and the workbook path.
-Next step: `/investment-analyst:sector-screening`. If GitHub Actions are set up, remind them to commit and
+Next step: the `sector-screening` skill. If GitHub Actions are set up, remind them to commit and
 push `config/state.yaml` so the weekly screen picks up the new sub-industries.
 
 ## Guardrails

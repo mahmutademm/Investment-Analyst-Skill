@@ -1,7 +1,11 @@
 ---
 name: pick-the-stock
-description: Deep dive on 1-4 stocks the user chose. Pulls SEC XBRL financials and the filing pack (10-K, 10-Q, proxy, earnings releases, 8-Ks), reads the filings, builds business/moat and a SWOT tied to model assumptions, runs the earnings-quality and credit gate (5-step DuPont, CFO/NI, accruals, Beneish, Piotroski, Altman, leverage, coverage, maturities), compares relative value with the full sub-industry peer median and the stock's own history, values it by life-cycle stage (3-stage DCF, reverse DCF, scenarios and sensitivity, DDM, residual income, normalized earnings), and prepares a decision sheet (6-month expected return, catalyst, ATR stop, position size, scale-in). Produces <TICKER>_DeepDive_<date>.xlsx. Use for /investment-analyst:pick-the-stock TICKER [TICKER...], "deep dive", "analyze the 10-K", "is X a buy", "value X".
-argument-hint: "TICKER [TICKER ...]"
+description: Deep dive on 1-4 stocks the user chose. Pulls SEC XBRL financials and the filing pack (10-K, 10-Q, proxy, earnings releases, 8-Ks), reads the filings, builds business/moat and a SWOT tied to model assumptions, runs the earnings-quality and credit gate (5-step DuPont, CFO/NI, accruals, Beneish, Piotroski, Altman, leverage, coverage, maturities), compares relative value with the full sub-industry peer median and the stock's own history, values it by life-cycle stage (3-stage DCF, reverse DCF, scenarios and sensitivity, DDM, residual income, normalized earnings), and prepares a decision sheet (6-month expected return, catalyst, ATR stop, position size, scale-in). Produces <TICKER>_DeepDive_<date>.xlsx. Takes 1-4 tickers. Use for "deep dive", "analyze the 10-K", "is X a buy", "value X".
+license: MIT
+compatibility: Needs Python 3.10+ and internet access; run the investment-setup skill first.
+metadata:
+  plugin: investment-analyst
+  repository: https://github.com/mahmutademm/Investment-Analyst-Skill
 ---
 
 # Pick the stock: deep dive
@@ -15,7 +19,8 @@ next one:
 4. Intrinsic value by life-cycle method, plus a reverse DCF and scenarios
 5. Decision support: expected 6-month return, catalyst, position size, stops
 
-Read first: `../setup/references/operating-rules.md`. This skill's `references/`:
+Read first: the shared rules in `../investment-setup/references/operating-rules.md` (if that folder was not installed: https://github.com/mahmutademm/Investment-Analyst-Skill/blob/main/plugins/investment-analyst/skills/investment-setup/references/operating-rules.md).
+This skill's `references/`:
 `10k-reading-guide.md`, `earnings-quality.md`, `credit.md`, `valuation-lifecycle.md`,
 `notes-schema.md`, `analysis-risks.md`.
 

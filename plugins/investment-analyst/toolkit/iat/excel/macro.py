@@ -191,7 +191,7 @@ def build(ws_cfg: Workspace, notes: dict | None = None, notes_path: Path | None 
         ("Order", "Dashboard -> Cycle Rules (your call) -> Rotation -> Scorecard (3 of 4 pillars) -> weights and sub-industries."),
         ("Timing risk", "Markets price turns 6-9 months ahead. Requiring thesis + price confirmation trims false starts at the cost of "
                         "the first few percent of the move."),
-        ("Next step", "Weights and sub-industries feed /investment-analyst:sector-screening (stored in config/state.yaml)."),
+        ("Next step", "Weights and sub-industries feed the sector-screening skill (stored in config/state.yaml)."),
     ])
     order = ["README", "Scorecard", "Cycle Rules", "Dashboard", "Rotation", "Correlation", "Events & Fed", "Sources"]
     wb._sheets = [wb[n] for n in order if n in wb.sheetnames]

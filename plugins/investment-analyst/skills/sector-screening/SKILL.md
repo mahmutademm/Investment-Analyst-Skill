@@ -1,7 +1,11 @@
 ---
 name: sector-screening
-description: Mechanical, peer-relative screening of the sub-industries chosen in macro-analysis (valuation, quality, estimate revisions, momentum, balance sheet, forensic flags), followed by a sourced "why is it cheap?" news check on the top names (temporary vs structural, catalyst inside 6 months). Produces Screen_<key>_<date>.xlsx. The user picks the 3-4 stocks for the deep dive. Use for /investment-analyst:sector-screening, "screen <sub-industry>", "find candidates in <sector>", "which stocks in medical devices".
-argument-hint: "[sub-industry key ...]"
+description: Mechanical, peer-relative screening of the sub-industries chosen in macro-analysis (valuation, quality, estimate revisions, momentum, balance sheet, forensic flags), followed by a sourced "why is it cheap?" news check on the top names (temporary vs structural, catalyst inside 6 months). Produces Screen_<key>_<date>.xlsx. The user picks the 3-4 stocks for the deep dive. Use for "screen <sub-industry>", "find candidates in <sector>", "which stocks in medical devices". Takes optional sub-industry keys.
+license: MIT
+compatibility: Needs Python 3.10+ and internet access; run the investment-setup skill first.
+metadata:
+  plugin: investment-analyst
+  repository: https://github.com/mahmutademm/Investment-Analyst-Skill
 ---
 
 # Sector screening
@@ -10,7 +14,8 @@ Screen all of them, deep-dive only a few. The screen is **mechanical and cheap**
 sub-industry. The expensive analysis (filings, peers, valuation) goes only to the survivors, and the user
 picks them.
 
-Read first: `../setup/references/operating-rules.md`. Detail: `references/screen-metrics.md` (indicators,
+Read first: the shared rules in `../investment-setup/references/operating-rules.md` (if that folder was not installed: https://github.com/mahmutademm/Investment-Analyst-Skill/blob/main/plugins/investment-analyst/skills/investment-setup/references/operating-rules.md).
+Detail: `references/screen-metrics.md` (indicators,
 thresholds, sector-specific metrics), `references/news-check.md` (temporary vs structural protocol),
 `references/sources.md`.
 
@@ -27,7 +32,7 @@ thresholds, sector-specific metrics), `references/news-check.md` (temporary vs s
 ### 0. Preflight
 `python -m iat status` (pull first if the workspace has a git remote). Read `config/state.yaml`:
 `sub_industries`, `allocation`, `screening.active`. If there is no recorded macro view, ask: "Run
-/investment-analyst:macro-analysis first (recommended) or screen sub-industries you name now?"
+the macro-analysis skill first (recommended) or screen sub-industries you name now?"
 
 ### 1. Confirm the scope (STOP and ask if anything is unclear)
 - Sub-industries to screen and their profile (`standard`, `bank`, `insurer`, `reit`, `energy`,
@@ -48,8 +53,8 @@ reasons; edit `config/sub_industries.yaml` only after the user agrees, then rebu
 ### 3. Get the screen data (respect the user's time)
 - If `data/latest/screen_<key>.csv` is under 7 days old (for example from the weekly Action), use it.
 - Otherwise estimate the runtime (about 2 seconds per name; the first run has no cache). Under ~3 minutes:
-  run `python -m iat screen <key>` yourself. Longer: ask the user to run it with
-  `! python -m iat screen <key>`, or run it in the background. The per-ticker cache lets an interrupted
+  run `python -m iat screen <key>` yourself. Longer: ask the user to run
+  `python -m iat screen <key>` in their own terminal, or run it in the background if your platform can. The per-ticker cache lets an interrupted
   or rate-limited run resume.
 - Many `PARTIAL DATA` flags mean Yahoo throttling. Re-run later; do not fill gaps by hand.
 
@@ -64,7 +69,7 @@ For each top name, follow `references/news-check.md`:
 1. `python -m iat filings <T1> <T2> ...` lists the last 10-K/10-Q, the last two earnings releases
    (8-K item 2.02) and every 8-K with its items. Items 4.01 (auditor change), 4.02 (non-reliance) and
    2.06 (impairment) are red flags.
-2. Read the last two earnings releases (WebFetch the EX-99.1 URL): guidance changes, what missed and why.
+2. Read the last two earnings releases (fetch the EX-99.1 URL): guidance changes, what missed and why.
 3. Search reputable news for the last 3-6 months.
 4. Classify the discount as **Temporary** (one-off miss, sector-wide sell-off, resolvable legal or
    regulatory overhang), **Structural** (share loss, disruption, a balance sheet it can't refinance) or
@@ -81,11 +86,11 @@ Quality, Expectations, Balance sheet & risk, Momentum & trading, Methodology, Un
 
 ### 7. Shortlist (STOP and ask)
 Present a compact table (rank, ticker, composite, cheap?, estimates OK?, temporary/structural, catalyst
-and date, key flags). Ask the user to choose the 3-4 names for the deep dive (AskUserQuestion with
-multiSelect, top candidates as options; "Other" covers names outside the list). Record:
+and date, key flags). Ask the user to choose the 3-4 names for the deep dive (a multiple-choice
+question with the top candidates as options plus free text for names outside the list). Record:
 `python -m iat state set shortlist.<key> "[T1, T2, T3]"` and add `user_shortlist` to the notes, then
 rebuild the workbook. Optionally add them to the watchlist with `python -m iat watch add <T> --status watch ...`.
-Next: `/investment-analyst:pick-the-stock T1 T2 T3`.
+Next: the `pick-the-stock` skill with T1 T2 T3.
 
 ## How a screen can mislead, and what this skill does about it
 

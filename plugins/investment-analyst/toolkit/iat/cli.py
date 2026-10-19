@@ -88,6 +88,24 @@ def copy_workflows(root: Path) -> None:
         shutil.copy2(f, wf / f.name)
 
 
+AGENTS_MARKER = "<!-- managed by iat"
+
+
+def refresh_agent_files(root: Path, force: bool = False) -> list[str]:
+    """AGENTS.md (read by most AI tools) is refreshed unless the user removed its managed-by line;
+    CLAUDE.md only imports it, so it is created once."""
+    done = []
+    agents = root / "AGENTS.md"
+    if force or not agents.exists() or agents.read_text(encoding="utf-8-sig").startswith(AGENTS_MARKER):
+        shutil.copy2(TEMPLATES / "AGENTS.md", agents)
+        done.append("AGENTS.md")
+    claude = root / "CLAUDE.md"
+    if force or not claude.exists():
+        shutil.copy2(TEMPLATES / "CLAUDE.md", claude)
+        done.append("CLAUDE.md")
+    return done
+
+
 def cmd_init(args) -> int:
     root = Path(args.path).expanduser().resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -103,6 +121,7 @@ def cmd_init(args) -> int:
             continue
         shutil.copy2(TEMPLATES / src, target)
         created.append(dst)
+    created += refresh_agent_files(root, force=args.force)
     copy_workflows(root)
     vendor_toolkit(root)
     (root / MARKER_FILE).write_text(json.dumps({"toolkit_version": iat.__version__, "created": store.now()}),
@@ -123,10 +142,11 @@ def cmd_upgrade(args) -> int:
     ws = _ws(args)
     copy_workflows(ws.root)
     vendor_toolkit(ws.root)
+    agent_files = refresh_agent_files(ws.root)
     (ws.root / MARKER_FILE).write_text(json.dumps({"toolkit_version": iat.__version__, "updated": store.now()}),
                                        encoding="utf-8")
-    _print(f"Refreshed .toolkit and .github/workflows in {ws.root} (toolkit {iat.__version__}). "
-           "Your config and data were not touched.")
+    _print(f"Refreshed .toolkit, .github/workflows{''.join(', ' + f for f in agent_files)} in {ws.root} "
+           f"(toolkit {iat.__version__}). Your config and data were not touched.")
     return 0
 
 

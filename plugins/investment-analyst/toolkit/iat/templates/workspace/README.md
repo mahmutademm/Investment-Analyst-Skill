@@ -1,6 +1,6 @@
 # My investment workspace
 
-Created by `iat init` from the investment-analyst Claude Code plugin. Keep this repository **private**:
+Created by `iat init` from the investment-analyst skills. Keep this repository **private**:
 it holds your settings, watchlist and decision journal.
 
 | Folder | What lives there | Committed? |
@@ -16,8 +16,9 @@ it holds your settings, watchlist and decision journal.
 | `filings/` | Downloaded 10-K/10-Q/8-K documents | no |
 | `output/` | Excel workbooks and AI notes | no (change in .gitignore) |
 | `.toolkit/` | Copy of the Python toolkit that GitHub Actions installs | yes |
+| `AGENTS.md`, `CLAUDE.md` | Rules and commands for whichever AI tool you open here | yes |
 
-Daily routine: `git pull` -> open `data/reports/daily_latest.md` -> run a skill in Claude Code.
+Daily routine: `git pull` -> open `data/reports/daily_latest.md` -> open your AI tool (Claude Code, Codex, Cursor, ...) in this folder and run a skill.
 
 GitHub Actions need one secret: **Settings -> Secrets and variables -> Actions -> New repository secret**
 named `SEC_USER_AGENT` with a value like `Your Name your@email.com`.

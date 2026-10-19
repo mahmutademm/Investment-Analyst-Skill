@@ -655,7 +655,7 @@ def _rows_sheet(wb, name, heading, sub, columns, rows, widths, pending_hint):
 
 
 def ai_sheets(wb, d, notes) -> None:
-    pend = "Pending: run /investment-analyst:pick-the-stock, which writes notes.json, then `iat excel company <T>`"
+    pend = "Pending: run the pick-the-stock skill, which writes notes.json, then `iat excel company <T>`"
     b = notes.get("business") or {}
     ws = wb.create_sheet("Business & Moat")
     r = C.title(ws, "Business and moat", "A moat claim needs numbers behind it: ROIC above peers for 5+ years.")

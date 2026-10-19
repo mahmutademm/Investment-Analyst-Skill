@@ -1,0 +1,21 @@
+{
+  "name": "investment-analyst",
+  "version": "0.2.0",
+  "description": "Top-down equity research skills: macro cycle and sector rotation (macro-analysis), sub-industry screening (sector-screening), 10-K deep dives with earnings-quality, credit and valuation workbooks (pick-the-stock), and position tracking (portfolio-review), backed by a Python toolkit (FRED, Yahoo Finance, SEC EDGAR) and Excel. The user makes every decision. Start with investment-setup.",
+  "author": {
+    "name": "Mahmut A Ergin",
+    "url": "https://github.com/mahmutademm"
+  },
+  "homepage": "https://github.com/mahmutademm/Investment-Analyst-Skill",
+  "repository": "https://github.com/mahmutademm/Investment-Analyst-Skill",
+  "license": "MIT",
+  "keywords": [
+    "investing",
+    "equity-research",
+    "sector-rotation",
+    "screening",
+    "10-K",
+    "dcf",
+    "excel"
+  ]
+}

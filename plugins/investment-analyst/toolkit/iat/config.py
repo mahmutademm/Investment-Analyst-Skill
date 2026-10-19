@@ -144,7 +144,7 @@ def find_workspace(explicit: str | os.PathLike | None = None) -> Path:
         if (c / MARKER_FILE).exists():
             return c.resolve()
     raise WorkspaceError(
-        "No investment workspace found. Run `iat init <folder>` (or the /investment-analyst:setup skill), "
+        "No investment workspace found. Run `iat init <folder>` (or the investment-setup skill), "
         "or pass --workspace / set IAT_WORKSPACE."
     )
 

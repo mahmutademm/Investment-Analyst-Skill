@@ -1,0 +1,20 @@
+{
+  "name": "investment-analyst",
+  "interface": {
+    "displayName": "Investment Analyst"
+  },
+  "plugins": [
+    {
+      "name": "investment-analyst",
+      "source": {
+        "source": "local",
+        "path": "./plugins/investment-analyst"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
+    }
+  ]
+}
