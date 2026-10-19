@@ -104,14 +104,6 @@ claude plugin validate .
 npx skills add . --list                                                    # what other tools will see
 ```
 
-## Publishing checklist
-
-- [x] Marketplace owner, plugin author and MIT `LICENSE` (root copy for GitHub, `toolkit/LICENSE` ships with the pip package and the vendored `.toolkit`)
-- [ ] Run `git status --short --ignored`: no workspace, `data/`, `filings/`, `output/` or `*.xlsx` files may
-      appear as new, and nothing under `plugins/` may show as ignored (`!!`), or it will be missing from GitHub
-- [ ] `python scripts/bump_version.py X.Y.Z` (the tests fail if any manifest disagrees), commit, push,
-      then `git tag vX.Y.Z && git push --tags`
-
 ## License
 
 [MIT](LICENSE) © 2026 Mahmut A Ergin. If you change the copyright line, change it in both `LICENSE` and
