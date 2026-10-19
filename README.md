@@ -93,8 +93,10 @@ claude plugin validate .
 ## Publishing checklist
 
 - [x] Marketplace owner, plugin author and MIT `LICENSE` (root copy for GitHub, `toolkit/LICENSE` ships with the pip package and the vendored `.toolkit`)
-- [ ] Confirm `git status` shows no workspace, `data/`, `filings/`, `output/` or `*.xlsx` files
-- [ ] Bump `version` in `plugin.json`, `marketplace.json` and `toolkit/pyproject.toml` together
+- [ ] Run `git status --short --ignored`: no workspace, `data/`, `filings/`, `output/` or `*.xlsx` files may
+      appear as new, and nothing under `plugins/` may show as ignored (`!!`), or it will be missing from GitHub
+- [ ] Bump the version together in `plugin.json`, `marketplace.json` (2 places), `toolkit/pyproject.toml` and
+      `toolkit/iat/__init__.py`
 
 ## License
 

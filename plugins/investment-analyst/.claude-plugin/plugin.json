@@ -1,6 +1,6 @@
 {
   "name": "investment-analyst",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Top-down equity research: macro cycle and sector rotation (/investment-analyst:macro-analysis), sub-industry screening (/investment-analyst:sector-screening), 10-K deep dives with earnings-quality, credit and valuation workbooks (/investment-analyst:pick-the-stock), and position tracking (/investment-analyst:portfolio-review). Start with /investment-analyst:setup.",
   "author": {
     "name": "Mahmut A Ergin",

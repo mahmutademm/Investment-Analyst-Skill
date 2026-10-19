@@ -1,0 +1,57 @@
+# Investment workspace settings. You edit this file; the skills read it.
+# Machine-written decisions (cycle call, sector weights, active screens) live in state.yaml.
+# Secrets (SEC contact string) live in local.yaml, which git ignores.
+
+portfolio:
+  value: null                 # total portfolio value in USD, used for position sizing (set at first run)
+  target_positions: 15        # number of stocks you aim to hold
+  risk_per_position_pct: 1.0  # % of portfolio lost if a price stop is hit (1-2% is typical)
+  max_position_pct: 10.0      # cap on any single position
+  max_sector_pct: 30.0        # cap on any single sector
+  horizon_months: 6           # investment horizon used for catalysts and expected return
+  short_term_tax_rate_pct: null  # optional: your marginal rate for gains held < 1 year (US)
+
+screening:
+  min_market_cap: 2.0e+9      # tradability: about $2B
+  min_adv_usd: 2.0e+7         # tradability: about $20M average daily dollar volume
+  news_check_top_n: 5         # how many top-ranked names per sub-industry get the "why is it cheap" check
+  cache_days: 6               # reuse per-ticker Yahoo pulls younger than this (lets you resume after rate limits)
+  exchanges: [NMS, NYQ, NGM, NCM, ASE]   # US listings only (no OTC/pink sheets)
+  sleep_seconds: 0.4          # pause between tickers to stay under Yahoo rate limits
+  max_tickers: 150            # safety cap per sub-industry
+
+rotation:
+  benchmark: SPY
+  rrg_window: 14              # weeks used for the RS-Ratio / RS-Momentum normalization
+  confirm_weeks: 3            # ratio must stay above its 10-week MA this long to count as confirmed
+  extra_etfs: []              # any other ETFs to track, e.g. [RSP, QQQ, IWM]
+
+valuation:
+  equity_risk_premium: 0.045  # update monthly from Damodaran's implied ERP (pages.stern.nyu.edu/~adamodar)
+  terminal_growth: 0.025      # long-run nominal growth; should not exceed long-run nominal GDP
+  atr_multiple: 2.5           # price stop = entry - multiple x ATR(14)
+  projection_years: 10
+  default_probabilities: {bear: 0.25, base: 0.50, bull: 0.25}
+  gap_closure_with_catalyst: 0.5     # share of the value gap assumed to close in 6 months with a dated catalyst
+  gap_closure_without_catalyst: 0.2
+
+thresholds:                   # gate and flag thresholds (starting points, adjust to taste)
+  cfo_ni_pass: 1.0
+  cfo_ni_fail: 0.8
+  accruals_watch: 0.05
+  accruals_fail: 0.10
+  beneish_watch: -2.22
+  beneish_fail: -1.78
+  piotroski_pass: 7
+  piotroski_fail: 3
+  net_debt_ebitda_watch: 3.0
+  net_debt_ebitda_fail: 4.0
+  interest_cover_pass: 4.0
+  interest_cover_fail: 2.0
+  tv_share_warning: 0.70
+  earnings_soon_days: 21
+  min_analysts: 5
+
+data:
+  owner: local                # set to "actions" once GitHub Actions run the daily/weekly jobs;
+                              # local runs then write to data/local/ so they never conflict with the bot

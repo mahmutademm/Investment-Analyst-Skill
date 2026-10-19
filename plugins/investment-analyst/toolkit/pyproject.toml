@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "iat-toolkit"
-version = "0.1.0"
+version = "0.1.1"
 description = "Investment Analyst Toolkit: data pulls, screens, forensic ratios and Excel builders for the investment-analyst Claude Code plugin."
 readme = "README.md"
 license = "MIT"

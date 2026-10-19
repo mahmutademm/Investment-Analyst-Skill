@@ -1,0 +1,21 @@
+# Secrets and machine-local files: never commit these
+config/local.yaml
+.env
+
+# Rebuildable / large
+data/iat.db
+data/cache/
+data/local/
+filings/
+
+# Excel workbooks and AI notes stay on your PC by default.
+# Remove these two lines if you want them versioned in your PRIVATE repo.
+output/
+*.xlsx
+
+__pycache__/
+*.pyc
+.venv/
+.toolkit/build/
+*.egg-info/
+~$*

@@ -1,0 +1,391 @@
+# Sub-industry definitions used by `iat universe`, `iat screen` and `iat rotation`.
+#
+# key:                 short id you pass to the CLI (iat screen medical-devices)
+#   name:              display name
+#   sector:            one of the 11 sector names in settings.rotation.sector_etfs
+#   yahoo_industries:  exact Yahoo industry names (list them with `iat industries`)
+#   etf:               optional sub-industry ETF; used for relative strength and momentum comparisons
+#   profile:           which valuation/quality metrics apply:
+#                      standard | bank | insurer | reit | energy | early_growth | managed_care
+#   include / exclude: manual ticker overrides after you review the universe
+#   notes:             things the screen cannot measure that the news check / deep dive must look at
+#
+# Add or edit entries freely. Keep peers comparable: a managed-care company should be screened
+# against managed-care peers, not against hospitals or biotech.
+
+sub_industries:
+  # ---------------- Health Care ----------------
+  pharma:
+    name: Pharmaceuticals
+    sector: Health Care
+    yahoo_industries: ["Drug Manufacturers—General", "Drug Manufacturers—Specialty & Generic"]
+    etf: IHE
+    profile: standard
+    notes: Patent cliffs (loss of exclusivity dates), pipeline readouts, drug-pricing policy (IRA negotiation).
+  biotech:
+    name: Biotechnology
+    sector: Health Care
+    yahoo_industries: ["Biotechnology"]
+    etf: XBI
+    profile: early_growth
+    notes: Binary trial/FDA events (PDUFA dates), cash runway in quarters, dilution risk.
+  medical-devices:
+    name: Medical devices & instruments
+    sector: Health Care
+    yahoo_industries: ["Medical Devices", "Medical Instruments & Supplies"]
+    etf: IHI
+    profile: standard
+    notes: Procedure volumes, FDA approvals/recalls, hospital capex budgets.
+  managed-care:
+    name: Managed care
+    sector: Health Care
+    yahoo_industries: ["Healthcare Plans"]
+    etf: IHF
+    profile: managed_care
+    notes: Medical loss ratio (MLR) trend, days claims payable, Medicare Advantage rate notices (Jan/Apr), star ratings.
+  healthcare-facilities:
+    name: Hospitals & care facilities
+    sector: Health Care
+    yahoo_industries: ["Medical Care Facilities"]
+    etf: IHF
+    profile: standard
+    notes: Payer mix, labor costs, reimbursement rule changes, leases (include in leverage).
+  life-science-tools:
+    name: Life-science tools & diagnostics
+    sector: Health Care
+    yahoo_industries: ["Diagnostics & Research"]
+    profile: standard
+    notes: Biopharma funding cycle, China exposure, instrument vs consumables mix.
+  healthcare-distribution:
+    name: Healthcare distributors
+    sector: Health Care
+    yahoo_industries: ["Medical Distribution"]
+    profile: standard
+    notes: Thin margins; judge on ROIC and working capital (DSO/DIO/DPO), opioid litigation.
+
+  # ---------------- Technology ----------------
+  semiconductors:
+    name: Semiconductors & equipment
+    sector: Technology
+    yahoo_industries: ["Semiconductors", "Semiconductor Equipment & Materials"]
+    etf: SMH
+    profile: standard
+    notes: Highly cyclical; value on normalized mid-cycle margins, inventory days at customers, export controls.
+  software:
+    name: Software
+    sector: Technology
+    yahoo_industries: ["Software—Application", "Software—Infrastructure"]
+    etf: IGV
+    profile: standard
+    notes: Use EV/sales + growth for unprofitable names (Rule of 40); deferred revenue / RPO trend; SBC as a real cost.
+  it-services:
+    name: IT services
+    sector: Technology
+    yahoo_industries: ["Information Technology Services"]
+    profile: standard
+    notes: Bookings/backlog, AI disruption of labor-based models, utilization.
+  tech-hardware:
+    name: Hardware, networking & components
+    sector: Technology
+    yahoo_industries: ["Computer Hardware", "Communication Equipment", "Electronic Components", "Scientific & Technical Instruments"]
+    profile: standard
+    notes: Inventory cycle, customer concentration, tariff exposure.
+
+  # ---------------- Financials ----------------
+  banks-regional:
+    name: Regional banks
+    sector: Financials
+    yahoo_industries: ["Banks—Regional"]
+    etf: KRE
+    profile: bank
+    notes: Value on P/TBV vs ROTCE; check CET1, NPLs, NIM, loan/deposit ratio, CRE concentration, unrealized securities losses.
+  banks-diversified:
+    name: Large diversified banks
+    sector: Financials
+    yahoo_industries: ["Banks—Diversified"]
+    etf: KBE
+    profile: bank
+    notes: Same bank metrics; also trading/IB revenue mix and stress-capital buffer.
+  capital-markets:
+    name: Capital markets & asset managers
+    sector: Financials
+    yahoo_industries: ["Capital Markets", "Asset Management", "Financial Data & Stock Exchanges"]
+    etf: IAI
+    profile: standard
+    notes: AUM flows, fee rates, market-level sensitivity; broker-dealer leverage is operational, not credit risk.
+  insurance-pc:
+    name: Property & casualty insurers
+    sector: Financials
+    yahoo_industries: ["Insurance—Property & Casualty", "Insurance—Specialty", "Insurance—Reinsurance"]
+    etf: KIE
+    profile: insurer
+    notes: Combined ratio (< 100% = underwriting profit), reserve development, catastrophe exposure, P/B vs ROE.
+  insurance-life:
+    name: Life & diversified insurers
+    sector: Financials
+    yahoo_industries: ["Insurance—Life", "Insurance—Diversified"]
+    etf: KIE
+    profile: insurer
+    notes: Spread income vs rates, variable-annuity hedging, RBC ratio, P/B ex-AOCI.
+  payments-credit:
+    name: Payments & consumer credit
+    sector: Financials
+    yahoo_industries: ["Credit Services"]
+    profile: standard
+    notes: Mixes networks (asset-light) with lenders (credit risk); split peers if the universe mixes both.
+
+  # ---------------- Consumer Discretionary ----------------
+  homebuilders:
+    name: Homebuilders
+    sector: Consumer Discretionary
+    yahoo_industries: ["Residential Construction"]
+    etf: ITB
+    profile: standard
+    notes: Cyclical; mortgage rates, orders and cancellations, P/B vs ROE, land inventory.
+  specialty-retail:
+    name: Specialty & apparel retail
+    sector: Consumer Discretionary
+    yahoo_industries: ["Specialty Retail", "Apparel Retail", "Home Improvement Retail", "Department Stores"]
+    etf: XRT
+    profile: standard
+    notes: Same-store sales, inventory vs sales growth, lease-adjusted leverage.
+  internet-retail:
+    name: Internet retail
+    sector: Consumer Discretionary
+    yahoo_industries: ["Internet Retail"]
+    profile: standard
+    notes: GMV and take rate, fulfillment cost per unit, SBC.
+  restaurants:
+    name: Restaurants
+    sector: Consumer Discretionary
+    yahoo_industries: ["Restaurants"]
+    profile: standard
+    notes: Same-store traffic vs price, franchise mix, labor and food costs, lease-adjusted leverage.
+  autos:
+    name: Autos & auto parts
+    sector: Consumer Discretionary
+    yahoo_industries: ["Auto Manufacturers", "Auto Parts"]
+    profile: standard
+    notes: Cyclical; use normalized earnings; captive finance arms distort leverage.
+  travel-leisure:
+    name: Travel, lodging & leisure
+    sector: Consumer Discretionary
+    yahoo_industries: ["Travel Services", "Lodging", "Resorts & Casinos", "Leisure"]
+    etf: PEJ
+    profile: standard
+    notes: RevPAR/bookings, consumer confidence, leverage at the trough.
+
+  # ---------------- Consumer Staples ----------------
+  packaged-foods:
+    name: Packaged foods
+    sector: Consumer Staples
+    yahoo_industries: ["Packaged Foods", "Confectioners", "Farm Products"]
+    profile: standard
+    notes: Volume vs price mix, GLP-1 demand effects, input-cost inflation.
+  beverages:
+    name: Beverages
+    sector: Consumer Staples
+    yahoo_industries: ["Beverages—Non-Alcoholic", "Beverages—Brewers", "Beverages—Wineries & Distilleries"]
+    profile: standard
+    notes: Organic growth, FX, dividend coverage (DDM candidates).
+  household-products:
+    name: Household & personal products
+    sector: Consumer Staples
+    yahoo_industries: ["Household & Personal Products"]
+    profile: standard
+    notes: Private-label share, promo intensity, dividend coverage.
+  staples-retail:
+    name: Discount & grocery retail
+    sector: Consumer Staples
+    yahoo_industries: ["Discount Stores", "Grocery Stores"]
+    profile: standard
+    notes: Comparable sales, membership/renewal rates, inventory shrink.
+
+  # ---------------- Energy ----------------
+  oil-gas-ep:
+    name: Oil & gas E&P
+    sector: Energy
+    yahoo_industries: ["Oil & Gas E&P"]
+    etf: XOP
+    profile: energy
+    notes: Breakeven oil price (from investor deck), hedging book, reserve life, FCF yield at strip prices.
+  oil-services:
+    name: Oil services & drilling
+    sector: Energy
+    yahoo_industries: ["Oil & Gas Equipment & Services", "Oil & Gas Drilling"]
+    etf: OIH
+    profile: energy
+    notes: Rig counts, international vs North America mix, backlog.
+  integrated-oil:
+    name: Integrated oil
+    sector: Energy
+    yahoo_industries: ["Oil & Gas Integrated"]
+    profile: energy
+    notes: Downstream margins, buyback capacity at lower oil prices, dividend coverage.
+  midstream:
+    name: Midstream
+    sector: Energy
+    yahoo_industries: ["Oil & Gas Midstream"]
+    profile: energy
+    notes: Distribution coverage, fee-based share of EBITDA, leverage (often 3.5-4.5x is normal here).
+  refiners:
+    name: Refining & marketing
+    sector: Energy
+    yahoo_industries: ["Oil & Gas Refining & Marketing"]
+    profile: energy
+    notes: Crack spreads; highly cyclical, so use normalized margins.
+
+  # ---------------- Industrials ----------------
+  aerospace-defense:
+    name: Aerospace & defense
+    sector: Industrials
+    yahoo_industries: ["Aerospace & Defense"]
+    etf: ITA
+    profile: standard
+    notes: Backlog/book-to-bill, defense budget timing, commercial aerospace delivery rates.
+  machinery:
+    name: Machinery
+    sector: Industrials
+    yahoo_industries: ["Specialty Industrial Machinery", "Farm & Heavy Construction Machinery", "Tools & Accessories"]
+    profile: standard
+    notes: Cyclical; dealer inventories, orders, normalized margins.
+  transports:
+    name: Transports
+    sector: Industrials
+    yahoo_industries: ["Railroads", "Trucking", "Integrated Freight & Logistics", "Airlines", "Marine Shipping"]
+    etf: IYT
+    profile: standard
+    notes: Freight volumes, operating ratio, fuel costs; airlines carry large lease obligations.
+  building-products:
+    name: Building products
+    sector: Industrials
+    yahoo_industries: ["Building Products & Equipment"]
+    profile: standard
+    notes: Housing starts/repair-remodel cycle, pricing vs volume.
+  electrical-equipment:
+    name: Electrical equipment
+    sector: Industrials
+    yahoo_industries: ["Electrical Equipment & Parts"]
+    profile: standard
+    notes: Data-center and grid capex exposure, backlog.
+  business-services:
+    name: Business services & staffing
+    sector: Industrials
+    yahoo_industries: ["Specialty Business Services", "Consulting Services", "Staffing & Employment Services", "Security & Protection Services"]
+    profile: standard
+    notes: Organic growth, contract renewal rates, labor intensity.
+  engineering-construction:
+    name: Engineering & construction
+    sector: Industrials
+    yahoo_industries: ["Engineering & Construction", "Infrastructure Operations"]
+    etf: PAVE
+    profile: standard
+    notes: Backlog margins, fixed-price contract risk, percentage-of-completion estimates.
+  waste-environmental:
+    name: Waste & environmental services
+    sector: Industrials
+    yahoo_industries: ["Waste Management", "Pollution & Treatment Controls"]
+    profile: standard
+    notes: Pricing power, landfill life, capex intensity.
+
+  # ---------------- Materials ----------------
+  chemicals:
+    name: Chemicals
+    sector: Materials
+    yahoo_industries: ["Chemicals", "Specialty Chemicals", "Agricultural Inputs"]
+    profile: standard
+    notes: Feedstock costs, China capacity, normalized margins.
+  metals-mining:
+    name: Metals & mining
+    sector: Materials
+    yahoo_industries: ["Steel", "Copper", "Aluminum", "Other Industrial Metals & Mining"]
+    etf: XME
+    profile: energy
+    notes: Commodity price deck, cost curve position, EV/EBITDA on mid-cycle prices.
+  precious-metals:
+    name: Gold & silver miners
+    sector: Materials
+    yahoo_industries: ["Gold", "Silver", "Other Precious Metals & Mining"]
+    etf: GDX
+    profile: energy
+    notes: All-in sustaining cost (AISC) vs spot price, reserve replacement, jurisdiction risk.
+  construction-materials:
+    name: Construction materials
+    sector: Materials
+    yahoo_industries: ["Building Materials"]
+    profile: standard
+    notes: Aggregates pricing, infrastructure spending.
+  packaging:
+    name: Packaging & paper
+    sector: Materials
+    yahoo_industries: ["Packaging & Containers", "Paper & Paper Products"]
+    profile: standard
+    notes: Volume trends, leverage after M&A.
+
+  # ---------------- Utilities ----------------
+  utilities-electric:
+    name: Electric & multi-utilities
+    sector: Utilities
+    yahoo_industries: ["Utilities—Regulated Electric", "Utilities—Diversified"]
+    profile: standard
+    notes: Rate-base growth, allowed ROE, regulatory lag, load growth from data centers; DDM candidates.
+  utilities-other:
+    name: Gas, water & power producers
+    sector: Utilities
+    yahoo_industries: ["Utilities—Regulated Gas", "Utilities—Regulated Water", "Utilities—Independent Power Producers", "Utilities—Renewable"]
+    profile: standard
+    notes: Independent power producers are commodity-exposed; separate them from regulated names if needed.
+
+  # ---------------- Real Estate ----------------
+  reits-industrial:
+    name: Industrial REITs
+    sector: Real Estate
+    yahoo_industries: ["REIT—Industrial"]
+    profile: reit
+    notes: P/FFO (AFFO if available), occupancy, lease spreads, debt maturities.
+  reits-residential:
+    name: Residential REITs
+    sector: Real Estate
+    yahoo_industries: ["REIT—Residential"]
+    etf: REZ
+    profile: reit
+    notes: Same-store NOI, new supply, rent growth.
+  reits-retail:
+    name: Retail REITs
+    sector: Real Estate
+    yahoo_industries: ["REIT—Retail"]
+    profile: reit
+    notes: Tenant credit, occupancy, re-leasing spreads.
+  reits-healthcare:
+    name: Healthcare REITs
+    sector: Real Estate
+    yahoo_industries: ["REIT—Healthcare Facilities"]
+    profile: reit
+    notes: Operator health (senior housing occupancy), triple-net coverage ratios.
+  reits-specialty:
+    name: Specialty REITs (towers, data centers, storage)
+    sector: Real Estate
+    yahoo_industries: ["REIT—Specialty"]
+    profile: reit
+    notes: Mixed business models; compare towers to towers, data centers to data centers.
+
+  # ---------------- Communication Services ----------------
+  interactive-media:
+    name: Interactive media & internet
+    sector: Communication Services
+    yahoo_industries: ["Internet Content & Information"]
+    profile: standard
+    notes: Ad market cycle, user engagement, regulatory/antitrust overhangs, AI capex.
+  entertainment:
+    name: Entertainment, gaming & broadcasting
+    sector: Communication Services
+    yahoo_industries: ["Entertainment", "Electronic Gaming & Multimedia", "Broadcasting"]
+    profile: standard
+    notes: Content amortization vs cash spend, subscriber trends, release slate.
+  telecom:
+    name: Telecom services
+    sector: Communication Services
+    yahoo_industries: ["Telecom Services"]
+    etf: IYZ
+    profile: standard
+    notes: Churn, ARPU, capex intensity, leverage and dividend coverage.

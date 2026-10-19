@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Top-down equity research workflow: macro cycle and sector rotation, sub-industry screening, and 10-K deep dives with Excel output.",
-    "version": "0.1.0"
+    "version": "0.1.1"
   },
   "plugins": [
     {
       "name": "investment-analyst",
       "source": "./plugins/investment-analyst",
       "description": "Macro analysis, sector screening and single-stock deep dives backed by a Python toolkit (FRED, Yahoo Finance, SEC EDGAR), SQLite history and Excel workbooks. The user makes every decision.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {"name": "Mahmut A Ergin"},
       "license": "MIT",
       "category": "finance",
