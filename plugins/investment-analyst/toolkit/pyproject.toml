@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iat-toolkit"
+version = "0.1.0"
+description = "Investment Analyst Toolkit: data pulls, screens, forensic ratios and Excel builders for the investment-analyst Claude Code plugin."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0",
+    "numpy>=1.24",
+    "requests>=2.31",
+    "yfinance>=0.2.60",
+    "openpyxl>=3.1",
+    "PyYAML>=6.0",
+    "beautifulsoup4>=4.12",
+    "lxml>=4.9",
+]
+
+[project.scripts]
+iat = "iat.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["iat*"]
+
+[tool.setuptools.package-data]
+iat = ["templates/workspace/*", "templates/workspace/*/*", "templates/workspace/*/*/*"]

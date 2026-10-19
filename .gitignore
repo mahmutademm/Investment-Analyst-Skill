@@ -1,0 +1,23 @@
+# This repository is the PUBLIC plugin. Never commit personal workspaces, data or keys.
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# Workspaces created for testing must live outside this repo; ignore them defensively anyway
+ws_*/
+workspace/
+data/
+filings/
+output/
+config/local.yaml
+*.xlsx
+*.db
+.env
+
+# Local Claude Code settings
+.claude/settings.local.json
