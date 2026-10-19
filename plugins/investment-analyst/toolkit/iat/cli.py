@@ -20,12 +20,13 @@ from iat.config import MARKER_FILE, Workspace
 
 TEMPLATES = Path(__file__).parent / "templates" / "workspace"
 PYPROJECT_VENDORED = """[build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "iat-toolkit"
 version = "{version}"
+license = "MIT"
 requires-python = ">=3.10"
 dependencies = ["pandas>=2.0", "numpy>=1.24", "requests>=2.31", "yfinance>=0.2.60", "openpyxl>=3.1",
                 "PyYAML>=6.0", "beautifulsoup4>=4.12", "lxml>=4.9"]
@@ -53,6 +54,21 @@ def _print(text: str) -> None:
 # init / doctor / status / config / state
 # ---------------------------------------------------------------------------
 
+def _license_text() -> str | None:
+    """MIT notice for the vendored copy: from the installed dist-info, else the source tree."""
+    from importlib import metadata
+    try:
+        for f in metadata.distribution("iat-toolkit").files or []:
+            if f.name == "LICENSE":
+                return f.read_text(encoding="utf-8")
+    except metadata.PackageNotFoundError:
+        pass
+    src = Path(iat.__file__).parent.parent / "LICENSE"
+    if src.is_file() and (src.parent / "pyproject.toml").is_file():
+        return src.read_text(encoding="utf-8")
+    return None
+
+
 def vendor_toolkit(root: Path) -> None:
     dest = root / ".toolkit"
     if dest.exists():
@@ -60,6 +76,9 @@ def vendor_toolkit(root: Path) -> None:
     pkg = Path(iat.__file__).parent
     shutil.copytree(pkg, dest / "iat", ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
     (dest / "pyproject.toml").write_text(PYPROJECT_VENDORED.format(version=iat.__version__), encoding="utf-8")
+    text = _license_text()
+    if text:
+        (dest / "LICENSE").write_text(text, encoding="utf-8")
 
 
 def copy_workflows(root: Path) -> None:

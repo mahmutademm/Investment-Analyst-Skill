@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,6 +7,9 @@ name = "iat-toolkit"
 version = "0.1.0"
 description = "Investment Analyst Toolkit: data pulls, screens, forensic ratios and Excel builders for the investment-analyst Claude Code plugin."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "Mahmut A Ergin"}]
 requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.0",

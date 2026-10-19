@@ -31,8 +31,8 @@ finds the skills.
 Requirements: Claude Code, Python 3.10+, git (for GitHub Actions). Excel or LibreOffice to open the workbooks.
 
 ```bash
-# from GitHub (after this repo is published)
-/plugin marketplace add <github-user>/<this-repo>
+# from GitHub
+/plugin marketplace add mahmutademm/Investment-Analyst-Skill
 /plugin install investment-analyst@investment-analyst
 
 # or from a local clone while developing
@@ -92,11 +92,14 @@ claude plugin validate .
 
 ## Publishing checklist
 
-- [ ] Replace `REPLACE-WITH-YOUR-GITHUB-USERNAME` in `.claude-plugin/marketplace.json`
-- [ ] Optionally add `"author": {"name": "..."}` to `plugin.json` (only what you want public)
-- [ ] Add a LICENSE of your choice
+- [x] Marketplace owner, plugin author and MIT `LICENSE` (root copy for GitHub, `toolkit/LICENSE` ships with the pip package and the vendored `.toolkit`)
 - [ ] Confirm `git status` shows no workspace, `data/`, `filings/`, `output/` or `*.xlsx` files
 - [ ] Bump `version` in `plugin.json`, `marketplace.json` and `toolkit/pyproject.toml` together
+
+## License
+
+[MIT](LICENSE) © 2026 Mahmut A Ergin. If you change the copyright line, change it in both `LICENSE` and
+`plugins/investment-analyst/toolkit/LICENSE`.
 
 ## Disclaimer
 
